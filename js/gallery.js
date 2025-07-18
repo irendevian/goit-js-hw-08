@@ -68,19 +68,58 @@ const gallery = document.querySelector('.gallery');
 
 gallery.insertAdjacentHTML("beforeend", createMarkup(images));
 
+gallery.addEventListener("click", handleClick)
 
-function createMarkup(images) {
-   return images.map((image) => `
+function createMarkup(arr) {
+   return arr.map((item) => `
    <li class="gallery-item">
-  <a class="gallery-link" href="${image.original}">
+  <a class="gallery-link" href="${item.original}">
     <img
       class="gallery-image"
-      src="${image.preview}"
-      data-source="${image.original}"
-      alt="${image.description}"
+      src="${item.preview}"
+      data-source="${item.original}"
+      alt="${item.description}"
     />
   </a>
 </li>
    `).join("");
 }
+
+
+function handleClick (event) {
+   event.preventDefault();
+   // if (event.target.classList.contains("gallery-image")) {
+   //    console.log(event.target.dataset.source);
+   //    const link = event.target.dataset.source;
+   //    return link;
+   // }
+
+   if (!event.target.classList.contains("gallery-image")) {
+      return;
+   }
+
+   const link = event.target.dataset.source;
+   const descr = event.target.getAttribute("alt");
+   // console.log(link);
+   // console.log(descr);
+   
+   
+
+   // const parent = event.target.closest(".gallery-item");
+   // console.log(parent);
+   
+
+
+
+   // console.log(event.target);
+
+   const instance = basicLightbox.create(`
+	<div class="modal">
+   <img src="${link}" alt="${descr}"/>
+   </div>
+`)
+   
+   instance.show();
+}
+
 
