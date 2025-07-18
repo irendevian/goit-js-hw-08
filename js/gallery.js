@@ -65,3 +65,22 @@ const images = [
 
 
 const gallery = document.querySelector('.gallery');
+
+gallery.insertAdjacentHTML("beforeend", createMarkup(images));
+
+
+function createMarkup(images) {
+   return images.map((image) => `
+   <li class="gallery-item">
+  <a class="gallery-link" href="${image.original}">
+    <img
+      class="gallery-image"
+      src="${image.preview}"
+      data-source="${image.original}"
+      alt="${image.description}"
+    />
+  </a>
+</li>
+   `).join("");
+}
+
